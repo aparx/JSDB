@@ -1,5 +1,5 @@
-# JSDB as an framework
-JStatsDB (Java StatsDB) is a Java Framework that allows developers to easily use the StatsDB.net Developer-API.<br>
+# JSDB as a library
+JStatsDB (Java StatsDB) is a Java Library that allows developers to easily use the StatsDB.net Developer-API.<br>
 Unit tested, well documented and supported will JSDB help developers along the way.<br>
 
 ## StatsDB - the ultimate platform
