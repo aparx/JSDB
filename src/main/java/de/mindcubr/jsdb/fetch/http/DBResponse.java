@@ -36,7 +36,7 @@ public class DBResponse {
      * @throws IndexOutOfBoundsException - if the body content is too big
      * and a buffer overflow would occur if not thrown.
      */
-    public String getBodyContent() {
+    public String getContent() {
         //Get the body of the response and null-check
         ResponseBody body = response.body();
         if (body != null) {

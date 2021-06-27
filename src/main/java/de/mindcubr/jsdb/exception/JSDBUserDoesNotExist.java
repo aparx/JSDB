@@ -7,7 +7,7 @@ package de.mindcubr.jsdb.exception;
  * @author mindcubr
  * @since 1.0-0.1
  */
-public class JSDBUserDoesNotExist extends JSDBFetchingException {
+public class JSDBUserDoesNotExist extends RuntimeException {
 
     private final String username;
 
@@ -21,7 +21,7 @@ public class JSDBUserDoesNotExist extends JSDBFetchingException {
      * @since 1.0-0.1
      */
     public JSDBUserDoesNotExist(String url, String username) {
-        super("The user '" + username + "' does not exist.", url);
+        super("The user '" + username + "' does not exist.");
         this.username = username;
     }
 

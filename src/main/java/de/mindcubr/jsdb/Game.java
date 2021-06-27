@@ -1,5 +1,6 @@
 package de.mindcubr.jsdb;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -19,7 +20,10 @@ import java.util.Objects;
  */
 public enum Game {
 
-    SIEGE("r6s", "Rainbow Six Siege");
+    SIEGE("r6s", "Rainbow Six Siege",
+            Platform.PC,
+            Platform.XBOX,
+            Platform.PLAYSTATION);
 
     @NotNull
     private final String shortcut, name;
@@ -43,6 +47,21 @@ public enum Game {
      */
     public Platform[] getPlatforms() {
         return platforms;
+    }
+
+    /**
+     * Returns whether the input {@code platform} is a supported
+     * platform of the game this fetcher is supporting and therefore
+     * representing.
+     *
+     * @param platform the target platform to check for
+     * @return whether the input {@code platform} is supported by
+     * this game.
+     */
+    public boolean isPlatformSupported(Platform platform) {
+        if (platform == null)
+            return false;
+        return ArrayUtils.contains(getPlatforms(), platform);
     }
 
     @NotNull

@@ -426,7 +426,19 @@ public class SiegeStats {
          * @see #getDeaths()
          */
         public double getKD() {
-            return (double) getKills() / (double) getDeaths();
+            double kills = getKills();
+            double deaths = getDeaths();
+
+            //To avoid NAN as an output value
+            if (kills < 1)
+                return 0;
+
+            //To avoid Infinity as an output value
+            if (deaths < 1)
+                return kills;
+
+            //Return the actual kills-to-deaths ratio
+            return kills / deaths;
         }
 
         /**
@@ -573,7 +585,13 @@ public class SiegeStats {
         }
 
         /**
-         * The maximum MMR of this player.
+         * The maximum MMR of this player in this mode.
+         *
+         * @apiNote Note that the Casual game mode might not have
+         * a maximum MMR set, so in context with a casual game mode,
+         * zero is returned. There are some cases, when the max
+         * MMR is defined (at least in the future) and sometimes they don't
+         * display it.
          */
         public int getMaxMMR() {
             return maxMMR;

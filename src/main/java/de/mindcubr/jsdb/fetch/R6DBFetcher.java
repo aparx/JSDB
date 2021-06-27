@@ -8,9 +8,10 @@ import de.mindcubr.jsdb.Game;
 import de.mindcubr.jsdb.Globals;
 import de.mindcubr.jsdb.Platform;
 import de.mindcubr.jsdb.bridge.DBBridge;
-import de.mindcubr.jsdb.deserialize.siege.SiegeStats;
 import de.mindcubr.jsdb.deserialize.siege.SiegePlayer;
+import de.mindcubr.jsdb.deserialize.siege.SiegeStats;
 import de.mindcubr.jsdb.exception.JSDBFetchingException;
+import de.mindcubr.jsdb.exception.JSDBPlatformNotSupported;
 import de.mindcubr.jsdb.exception.JSDBTokenInvalid;
 import de.mindcubr.jsdb.exception.JSDBUserDoesNotExist;
 import de.mindcubr.jsdb.fetch.http.DBResponse;
@@ -46,44 +47,42 @@ public class R6DBFetcher extends DBFetcher<SiegePlayer> {
      */
     @Override
     public synchronized SiegePlayer fetchPlayerFromResponse(@NotNull DBResponse response)
-            throws JSDBFetchingException {
+            throws JSDBTokenInvalid, JSDBUserDoesNotExist, JSDBFetchingException {
         Objects.requireNonNull(response);
         //The initial URL that caused the input response
         final String url = response.getCauser().getURL();
+        final Gson gson = new Gson();
+        final String content = response.getContent();
+        final JsonElement element = JsonParser.parseString(content);
+        final JsonObject object = element.getAsJsonObject();
+        final int code = response.getCode();
 
+        //Validate that the servers are online and the URL correct
+        Validate.isTrue(object.has("code"),
+                "The target URL is offline or invalid.");
+
+        //Throw an external exception if the user does not exist
+        if (code == 404) {
+            throw new JSDBUserDoesNotExist(url, filterUsernameFromURL(url));
+        }
+
+        //Throw an external exception if the token and authorization
+        //is invalid and access forbidden
+        if (code == 401) {
+            throw new JSDBTokenInvalid(StringUtils.EMPTY);
+        }
+
+        //Validating that there is a payload attached to it
+        Validate.isTrue(object.has("payload"),
+                code + ':' + object.get("message").getAsString());
+
+        //Getting the information off that payload
         try {
-            final Gson gson = new Gson();
-            final String content = response.getBodyContent();
-            final JsonElement element = JsonParser.parseString(content);
-            final JsonObject object = element.getAsJsonObject();
-            final int code = response.getCode();
-
-            //Validate that the servers are online and the URL correct
-            Validate.isTrue(object.has("code"),
-                    "The target URL is offline or invalid.");
-
-            //Throw an external exception if the user does not exist
-            if (code == 404) {
-                throw new JSDBUserDoesNotExist(url, filterUsernameFromURL(url));
-            }
-
-            //Throw an external exception if the token and authorization
-            //is invalid and access forbidden
-            if (code == 401) {
-                throw new JSDBTokenInvalid(StringUtils.EMPTY);
-            }
-
-            //Validating that there is a payload attached to it
-            Validate.isTrue(object.has("payload"),
-                    code + ':' + object.get("message").getAsString());
-
-            //Getting the information off that payload
             JsonObject payload = object.get("payload").getAsJsonObject();
             SiegePlayer user = gson.fromJson(payload.get("user"), SiegePlayer.class);
             user.setStats(gson.fromJson(payload.get("stats"), SiegeStats.class));
             return user;
         } catch (Exception exc) {
-            //Rethrow the exc as an JSDBFetchingException
             throw new JSDBFetchingException(exc, url);
         }
     }
@@ -130,12 +129,14 @@ public class R6DBFetcher extends DBFetcher<SiegePlayer> {
      *
      * @param id the id of the target user.
      * @return a possible new instance of the {@code id}.
-     * @throws JSDBFetchingException - if the user is invalid or the
-     * fetching, requesting or server are invalid or offline.
+     * @throws JSDBFetchingException if the general fetching and data
+     * collecting or deserialization went wrong.
+     * @throws JSDBUserDoesNotExist if the target user does not exist.
+     * @throws JSDBTokenInvalid if the given authorization failed.
      */
     @Override
     public synchronized SiegePlayer fetchPlayerByID(@NotNull String id)
-            throws JSDBFetchingException {
+            throws JSDBUserDoesNotExist, JSDBFetchingException, JSDBTokenInvalid {
         //Fetch the response of the request
         return fetchFromURL(String.format(Globals.URL_FETCH_ID, id));
     }
@@ -146,15 +147,21 @@ public class R6DBFetcher extends DBFetcher<SiegePlayer> {
      * @param platform the target platform to search for
      * @param name     the name of the target user.
      * @return a possible new instance of the {@code name}.
-     * @throws JSDBFetchingException - if the user is invalid or the
-     * fetching, requesting or server are invalid or offline.
+     * @throws JSDBFetchingException if the general fetching and data
+     * collecting or deserialization went wrong.
+     * @throws JSDBUserDoesNotExist if the target user does not exist.
+     * @throws JSDBPlatformNotSupported if the target {@code platform} is not
+     * compatible with this game.
+     * @throws JSDBTokenInvalid if the given authorization failed.
      */
     @Override
     public synchronized SiegePlayer fetchPlayerByName(@NotNull Platform platform, final @NotNull String name)
-            throws JSDBFetchingException {
+            throws JSDBUserDoesNotExist, JSDBFetchingException, JSDBPlatformNotSupported, JSDBTokenInvalid {
         Objects.requireNonNull(platform);
         Objects.requireNonNull(name);
         Validate.notBlank(name);
+        checkPlatform(platform);
+
         //Fetch the response of the request
         return fetchFromURL(String.format(Globals.URL_FETCH_USER,
                 platform.toShort(), name));
@@ -166,7 +173,7 @@ public class R6DBFetcher extends DBFetcher<SiegePlayer> {
      *
      * @param bridge the bridge given to the fetcher
      * @return a new instance of {@link R6DBFetcher}.
-     * @throws NullPointerException - if the {@code bridge} is null and
+     * @throws NullPointerException if the {@code bridge} is null and
      * therefore undefined.
      */
     public static R6DBFetcher withBridge(@NotNull DBBridge bridge) {

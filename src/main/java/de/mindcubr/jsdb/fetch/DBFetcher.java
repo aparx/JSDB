@@ -6,8 +6,10 @@ import de.mindcubr.jsdb.bridge.DBBridge;
 import de.mindcubr.jsdb.deserialize.User;
 import de.mindcubr.jsdb.deserialize.siege.SiegePlayer;
 import de.mindcubr.jsdb.exception.JSDBFetchingException;
+import de.mindcubr.jsdb.exception.JSDBPlatformNotSupported;
+import de.mindcubr.jsdb.exception.JSDBTokenInvalid;
+import de.mindcubr.jsdb.exception.JSDBUserDoesNotExist;
 import de.mindcubr.jsdb.fetch.http.DBResponse;
-import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -81,27 +83,39 @@ public abstract class DBFetcher<T extends User> implements IDBFetcher<T> {
     }
 
     /**
-     * Returns whether the input {@code platform} is a supported
-     * platform of the game this fetcher is supporting and therefore
-     * representing.
+     * Validates that the input {@code platform} is valid
+     * and is supported by this {@link #game}.
      *
-     * @param platform the target platform to check for
-     * @return whether the input {@code platform} is supported by
-     * this {@link #game}.
+     * @param platform the platform to check for
+     * @throws JSDBPlatformNotSupported if the {@code platform} is invalid
+     * or not supported by this {@link #game}.
      * @see #game
-     * @see #getSupportedPlatforms()
+     * @see JSDBPlatformNotSupported
      */
-    public boolean isPlatformSupported(Platform platform) {
-        if (platform == null)
-            return false;
-        return ArrayUtils.contains(getSupportedPlatforms(), platform);
+    public void checkPlatform(Platform platform) {
+        if (!game.isPlatformSupported(platform)) {
+            throw new JSDBPlatformNotSupported(game, platform);
+        }
+    }
+
+    /**
+     * Returns this {@link #game} value, that this subclass fetcher
+     * instance is supporting and made for.
+     *
+     * @throws NullPointerException if the {@link #game} is null,
+     * which never should be, but safe is safe
+     */
+    @NotNull
+    public Game getGame() {
+        return Objects.requireNonNull(game);
     }
 
     /**
      * Fetches a {@link SiegePlayer} from the given {@code response}.
      *
      * @return a new {@link SiegePlayer} instance made up off the {@code response}.
-     * @throws JSDBFetchingException - if the requesting or fetching goes wrong.
+     * @throws JSDBFetchingException - if something went wrong during the
+     * fetching, deserialization or tokenization.
      */
     public abstract T fetchPlayerFromResponse(@NotNull DBResponse response)
             throws JSDBFetchingException;
@@ -111,11 +125,13 @@ public abstract class DBFetcher<T extends User> implements IDBFetcher<T> {
      *
      * @param id the id of the target user.
      * @return a possible new instance of the {@code id}.
-     * @throws JSDBFetchingException - if the user is invalid or the
-     * fetching, requesting or server are invalid or offline.
+     * @throws JSDBFetchingException - if the general fetching and data
+     * collecting or deserialization went wrong
+     * @throws JSDBUserDoesNotExist - if the target user does not exist
+     * @throws JSDBTokenInvalid - if the given authorization failed
      */
     public abstract T fetchPlayerByID(@NotNull String id)
-            throws JSDBFetchingException;
+            throws JSDBUserDoesNotExist, JSDBFetchingException, JSDBTokenInvalid;
 
     /**
      * Fetches an {@link SiegePlayer} with the input {@code name}, if existing.
@@ -123,11 +139,13 @@ public abstract class DBFetcher<T extends User> implements IDBFetcher<T> {
      * @param platform the target platform to search for
      * @param name     the name of the target user.
      * @return a possible new instance of the {@code name}.
-     * @throws JSDBFetchingException - if the user is invalid or the
-     * fetching, requesting or server are invalid or offline.
+     * @throws JSDBFetchingException - if the general fetching and data
+     * collecting or deserialization went wrong
+     * @throws JSDBUserDoesNotExist - if the target user does not exist
+     * @throws JSDBTokenInvalid - if the given authorization failed
      */
     public abstract T fetchPlayerByName(@NotNull Platform platform,
                                         final @NotNull String name)
-            throws JSDBFetchingException;
+            throws JSDBUserDoesNotExist, JSDBFetchingException, JSDBTokenInvalid;
 
 }

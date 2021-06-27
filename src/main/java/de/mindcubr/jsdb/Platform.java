@@ -14,7 +14,7 @@ public enum Platform {
 
     PC("pc"),
     XBOX("xbox"),
-    PLAYSTATION("ps"),
+    PLAYSTATION("psn"),
     SWITCH("switch"),
     MOBILE("mobile"),
 

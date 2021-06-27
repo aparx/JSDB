@@ -3,13 +3,13 @@ package de.mindcubr.jsdb.exception;
 /**
  * Exception thrown whenever a fetching or post request
  * is failed or denied due to an issue with the concurrent
- * used {@link de.mindcubr.jsdb.bridge.DBToken token}.
+ * used {@link de.mindcubr.jsdb.bridge.DBToken token} or authorization.
  *
  * @author mindcubr
  * @see de.mindcubr.jsdb.bridge.DBToken
  * @since 1.0-0.1
  */
-public class JSDBTokenInvalid extends Exception {
+public class JSDBTokenInvalid extends RuntimeException {
 
     private final String token;
 
