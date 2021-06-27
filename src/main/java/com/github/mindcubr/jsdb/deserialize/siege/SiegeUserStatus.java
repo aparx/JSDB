@@ -1,4 +1,4 @@
-package de.mindcubr.jsdb.deserialize.siege;
+package com.github.mindcubr.jsdb.deserialize.siege;
 
 /**
  * @author mindcubr

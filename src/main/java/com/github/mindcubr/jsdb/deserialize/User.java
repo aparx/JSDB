@@ -1,7 +1,6 @@
-package de.mindcubr.jsdb.deserialize;
+package com.github.mindcubr.jsdb.deserialize;
 
 import com.google.gson.annotations.SerializedName;
-import de.mindcubr.jsdb.Game;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;

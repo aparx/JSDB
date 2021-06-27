@@ -1,9 +1,8 @@
-package de.mindcubr.jsdb.fetch;
+package com.github.mindcubr.jsdb.fetch;
 
-import de.mindcubr.jsdb.deserialize.User;
-import de.mindcubr.jsdb.exception.JSDBFetchingException;
-import de.mindcubr.jsdb.exception.JSDBUserDoesNotExist;
-import de.mindcubr.jsdb.fetch.http.DBResponse;
+import com.github.mindcubr.jsdb.deserialize.User;
+import com.github.mindcubr.jsdb.fetch.http.DBResponse;
+import com.github.mindcubr.jsdb.exception.JSDBFetchingException;
 import org.jetbrains.annotations.NotNull;
 
 /**

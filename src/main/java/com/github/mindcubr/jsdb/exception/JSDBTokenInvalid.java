@@ -1,12 +1,14 @@
-package de.mindcubr.jsdb.exception;
+package com.github.mindcubr.jsdb.exception;
+
+import com.github.mindcubr.jsdb.bridge.DBToken;
 
 /**
  * Exception thrown whenever a fetching or post request
  * is failed or denied due to an issue with the concurrent
- * used {@link de.mindcubr.jsdb.bridge.DBToken token} or authorization.
+ * used {@link DBToken token} or authorization.
  *
  * @author mindcubr
- * @see de.mindcubr.jsdb.bridge.DBToken
+ * @see DBToken
  * @since 1.0-0.1
  */
 public class JSDBTokenInvalid extends RuntimeException {

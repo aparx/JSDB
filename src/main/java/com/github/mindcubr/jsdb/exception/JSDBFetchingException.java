@@ -1,4 +1,4 @@
-package de.mindcubr.jsdb.exception;
+package com.github.mindcubr.jsdb.exception;
 
 /**
  * Exception usually thrown when a post request or fetching

@@ -1,4 +1,4 @@
-package de.mindcubr.jsdb.bridge;
+package com.github.mindcubr.jsdb.bridge;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;

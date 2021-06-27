@@ -1,20 +1,20 @@
-package de.mindcubr.jsdb.fetch;
+package com.github.mindcubr.jsdb.fetch;
 
+import com.github.mindcubr.jsdb.deserialize.siege.SiegePlayer;
+import com.github.mindcubr.jsdb.deserialize.siege.SiegeStats;
+import com.github.mindcubr.jsdb.exception.JSDBPlatformNotSupported;
+import com.github.mindcubr.jsdb.exception.JSDBTokenInvalid;
+import com.github.mindcubr.jsdb.exception.JSDBUserDoesNotExist;
+import com.github.mindcubr.jsdb.fetch.http.DBResponse;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import de.mindcubr.jsdb.Game;
-import de.mindcubr.jsdb.Globals;
-import de.mindcubr.jsdb.Platform;
-import de.mindcubr.jsdb.bridge.DBBridge;
-import de.mindcubr.jsdb.deserialize.siege.SiegePlayer;
-import de.mindcubr.jsdb.deserialize.siege.SiegeStats;
-import de.mindcubr.jsdb.exception.JSDBFetchingException;
-import de.mindcubr.jsdb.exception.JSDBPlatformNotSupported;
-import de.mindcubr.jsdb.exception.JSDBTokenInvalid;
-import de.mindcubr.jsdb.exception.JSDBUserDoesNotExist;
-import de.mindcubr.jsdb.fetch.http.DBResponse;
+import com.github.mindcubr.jsdb.Game;
+import com.github.mindcubr.jsdb.Globals;
+import com.github.mindcubr.jsdb.Platform;
+import com.github.mindcubr.jsdb.bridge.DBBridge;
+import com.github.mindcubr.jsdb.exception.JSDBFetchingException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.jetbrains.annotations.NotNull;
@@ -23,7 +23,7 @@ import java.util.Objects;
 
 /**
  * Subclass specified version of a {@link DBFetcher} made for the game
- * {@link de.mindcubr.jsdb.Game#SIEGE Rainbow Six: Siege}.
+ * {@link Game#SIEGE Rainbow Six: Siege}.
  * <p>This fetcher is a specialized version of the global
  * {@link DBFetcher} which can be used for different games,
  * whereas this class only contains methods that can fetch
