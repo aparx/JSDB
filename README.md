@@ -1,3 +1,7 @@
+The library is yet **Work In Progress** and unstable.<br>
+The maven information does not work at the moment and we are working on a fix.<br>
+Wait until a 2.0.0 update is out and/or the next update that says "stable".
+
 # JSDB as a library
 JStatsDB (Java StatsDB) is a Java Library that allows developers to easily use the StatsDB.net Developer-API.<br>
 Unit tested, well documented and supported will JSDB help developers along the way.<br><br>
