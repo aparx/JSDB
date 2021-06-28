@@ -39,13 +39,13 @@ further methods and actions you want to execute and take place at.<br>
 _Wiki links:_
 [GlobalConfig](https://github.com/mindcubr/JSDB/wiki/The-Main-Components#globalconfig) | [DBBridge - what is this?](https://github.com/mindcubr/JSDB/wiki/The-Main-Components#dbbridge)
 
-**3.** Okay. We're pretty far. Now we need to implement the actual fetcher.
+**3.** Okay. We're pretty far. Now we need to implement the actual fetcher.<br>
 This part is pretty hard to explain in short terms. That is why you should
-consider reading the whole part [within the Wiki about Fetchers here](https://github.com/mindcubr/JSDB/wiki/The-Fetcher).
+consider reading the whole part [within the Wiki about Fetchers here](https://github.com/mindcubr/JSDB/wiki/The-Fetcher).<br>
 In short terms: A DBFetcher class is a parent root class, that consists of abstract and pre-coded methods<br>
 which will be used for later analytic and access onto the StatsDB Developer-API features and functions.<br>
-The returning parts of a post request are formatted as a JSON format, that will be deserialized into
-virtual JVM-Instances that you will finally use as finished and formatted versions of **User**s.
+The returning parts of a post request are formatted as a JSON format, that will be deserialized into<br>
+virtual JVM-Instances that you will finally use as finished and formatted versions of **User**s.<br>
 As this deserialization process can vary from game to game, every game has its own fetcher.<br>
 For this example we want the statistics of the game Rainbow: Six Siege.<br>
 ```java
