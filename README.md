@@ -4,9 +4,9 @@ Unit tested, well documented and supported will JSDB help developers along the w
 This readme is separated into following sections:
 1. [StatsDB - The Ultimate Platform](https://github.com/mindcubr/JSDB#statsdb---the-ultimate-platform)
 2. [Tutorial in 3 Steps](https://github.com/mindcubr/JSDB#example-code)
-  - [First Step]()
-  - [Second Step]()
-  - [Third Step]()
+   * [First Step](https://github.com/mindcubr/JSDB#example-code)
+   * [Second Step](https://github.com/mindcubr/JSDB#example-code)
+   * [Final Step](https://github.com/mindcubr/JSDB#example-code)
 3. [The Wiki](https://github.com/mindcubr/JSDB#the-wiki---a-new-way-of-tutorial)
 
 ## StatsDB - the ultimate platform
