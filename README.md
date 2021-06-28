@@ -18,12 +18,64 @@ At the end of every code you will find the specific Wiki-Links where you can rea
 further about how and why to create those steps.<br><br>
 
 **1.** We need to create a token. This token will be required as a header called<br>
-"Authorization" within any post request to the StatsDB-Servers. Without that authorization,
-an error code _401: Unauthorized_ is returned.
+"Authorization" within any post request to the StatsDB-Servers. Fortunately you don't<br>
+have to do that by yourself. Without that authorization, an error code _401: Unauthorized_ is returned.<br>
+In this case a **JSDBTokenInvalid** exception would be thrown, later when fetching a user.<br>
 ```java
 DBToken token = DBToken.encrypt("1703132411279978", "8ccd4fcae29021103178a1188023004d");
 ```
-[How to setup a token](https://github.com/mindcubr/JSDB/wiki/Getting-Started#creating-an-application-for-statsdbnet) | [DBToken - was is this?](https://github.com/mindcubr/JSDB/wiki/The-Main-Components#dbtoken]
+_Wiki links:_
+[How to setup a token](https://github.com/mindcubr/JSDB/wiki/Getting-Started#creating-an-application-for-statsdbnet) | [DBToken - what is this?](https://github.com/mindcubr/JSDB/wiki/The-Main-Components#dbtoken)
+
+**2.** We need to create a [GlobalConfig](https://github.com/mindcubr/JSDB/wiki/The-Main-Components#globalconfig), that is used to store sensitive data,<br>
+such as the token and for the [DBBridge](https://github.com/mindcubr/JSDB/wiki/The-Main-Components#dbbridge) necessary components and attributes.<br>
+```java
+DBToken token = DBToken.encrypt("1703132411279978", "8ccd4fcae29021103178a1188023004d");
+GlobalConfig config = GlobalConfig.withToken(token);
+DBBridge bridge = DBBridge.create(config);
+```
+The [DBBridge](https://github.com/mindcubr/JSDB/wiki/The-Main-Components#dbbridge) is a main component, which instance is required for<br>
+further methods and actions you want to execute and take place at.<br>
+_Wiki links:_
+[GlobalConfig](https://github.com/mindcubr/JSDB/wiki/The-Main-Components#globalconfig) | [DBBridge - what is this?](https://github.com/mindcubr/JSDB/wiki/The-Main-Components#dbbridge)
+
+**3.** Okay. We're pretty far. Now we need to implement the actual fetcher.
+This part is pretty hard to explain in short terms. That is why you should
+consider reading the whole part [within the Wiki about Fetchers here](https://github.com/mindcubr/JSDB/wiki/The-Fetcher).
+In short terms: A DBFetcher class is a parent root class, that consists of abstract and pre-coded methods<br>
+which will be used for later analytic and access onto the StatsDB Developer-API features and functions.<br>
+The returning parts of a post request are formatted as a JSON format, that will be deserialized into
+virtual JVM-Instances that you will finally use as finished and formatted versions of **User**s.
+As this deserialization process can vary from game to game, every game has its own fetcher.<br>
+For this example we want the statistics of the game Rainbow: Six Siege.<br>
+```java
+R6DBFetcher fetcher = R6DBFetcher.withBridge(bridge);
+try {
+  SiegePlayer player = fetcher.fetchPlayerByName(Platform.PC, "proelothrower");
+  //The ID of the ubisoft user behind the player
+  String userID = player.getID();
+
+  //The deserialized statistics
+  SiegeStats stats = player.getStats();
+
+  //The level of the player
+  int level = stats.getProgression().getLevel();
+
+  //Accessing seasonal statistics
+  SiegeStats.SeasonalData seasonal = stats.getSeasonal();
+  int rankedMMR = seasonal.getRanked().getMMR();
+  int casualMMR = seasonal.getCasual().getMMR();
+
+  System.out.printf("ID: %s%n+ Level: %d%n+ Ranked: %d MMR%n+ Casual: %d MMR%n",
+        userID, level, rankedMMR, casualMMR);
+} catch (JSDBFetchingException | JSDBTokenInvalid e) {
+  System.err.println("Sadly, something went wrong during the fetching.");
+  e.printStackTrace();
+} catch (JSDBUserDoesNotExist exc) {
+  System.err.println("The user has changed its name or doesn't exist.");
+}
+```
+Voilà, we're finished.
 
 ## The Wiki - a new way of tutorial
 This GitHub-Project contains a complete library that gives you an idea of how<br>
