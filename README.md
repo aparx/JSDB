@@ -11,14 +11,15 @@ Wait until a 2.0.0 update is out and/or the next update that says "stable".<br>
 JStatsDB (Java StatsDB) is a Java Library that allows developers to easily use the StatsDB.net Developer-API.<br>
 Unit tested, well documented and supported will JSDB help developers along the way.<br><br>
 This readme is separated into following sections:
-1. [StatsDB - The Ultimate Platform](https://github.com/mindcubr/JSDB#statsdb---the-ultimate-platform)
+1. [StatsDB - The Ultimate Platform](https://github.com/mindcubr/JSDB#the-ultimate-platform)
 2. [Tutorial in 3 Steps](https://github.com/mindcubr/JSDB#example-code)
    * [First Step](https://github.com/mindcubr/JSDB#example-code)
    * [Second Step](https://github.com/mindcubr/JSDB#example-code)
    * [Final Step](https://github.com/mindcubr/JSDB#example-code)
 3. [The Wiki](https://github.com/mindcubr/JSDB#the-wiki---a-new-way-of-tutorial)
 
-## StatsDB - the ultimate platform
+## The ultimate platform
+<img src="https://user-images.githubusercontent.com/47287352/123701391-15426700-d862-11eb-8f88-64af2434d6b6.png" width="200px"></img><br>
 [StatsDB](https://statsdb.net/) describe themselves as the ultimate gaming statistic tracking platform,<br>
 as they provide a lot of data that can be useful for improving, developing and beyond.<br>
 It is recommended to use their API as it is simple, clean, intuitive and online at any time.<br>
