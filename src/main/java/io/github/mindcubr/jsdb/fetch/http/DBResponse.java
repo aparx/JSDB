@@ -1,4 +1,4 @@
-package com.github.mindcubr.jsdb.fetch.http;
+package io.github.mindcubr.jsdb.fetch.http;
 
 import okhttp3.Response;
 import okhttp3.ResponseBody;

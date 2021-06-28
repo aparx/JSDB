@@ -1,8 +1,8 @@
-package com.github.mindcubr.jsdb.deserialize.siege;
+package io.github.mindcubr.jsdb.deserialize.siege;
 
 import com.google.gson.annotations.SerializedName;
-import com.github.mindcubr.jsdb.deserialize.Alias;
-import com.github.mindcubr.jsdb.deserialize.User;
+import io.github.mindcubr.jsdb.deserialize.Alias;
+import io.github.mindcubr.jsdb.deserialize.User;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;

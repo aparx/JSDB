@@ -1,4 +1,4 @@
-package com.github.mindcubr.jsdb.deserialize.siege;
+package io.github.mindcubr.jsdb.deserialize.siege;
 
 import com.google.gson.annotations.SerializedName;
 

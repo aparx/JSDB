@@ -1,4 +1,4 @@
-package com.github.mindcubr.jsdb;
+package io.github.mindcubr.jsdb;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;

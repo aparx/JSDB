@@ -1,4 +1,4 @@
-package com.github.mindcubr.jsdb;
+package io.github.mindcubr.jsdb;
 
 /**
  * Generic variables that can be easily configured if

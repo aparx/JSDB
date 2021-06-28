@@ -1,9 +1,9 @@
-package com.github.mindcubr.jsdb.bridge;
+package io.github.mindcubr.jsdb.bridge;
 
 
-import com.github.mindcubr.jsdb.bridge.config.GlobalConfig;
-import com.github.mindcubr.jsdb.bridge.config.IBridgeConfig;
-import com.github.mindcubr.jsdb.fetch.http.DBRequest;
+import io.github.mindcubr.jsdb.bridge.config.GlobalConfig;
+import io.github.mindcubr.jsdb.bridge.config.IBridgeConfig;
+import io.github.mindcubr.jsdb.fetch.http.DBRequest;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;

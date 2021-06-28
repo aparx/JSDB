@@ -1,6 +1,6 @@
-package com.github.mindcubr.jsdb.exception;
+package io.github.mindcubr.jsdb.exception;
 
-import com.github.mindcubr.jsdb.bridge.DBToken;
+import io.github.mindcubr.jsdb.bridge.DBToken;
 
 /**
  * Exception thrown whenever a fetching or post request

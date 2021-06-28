@@ -1,7 +1,7 @@
-package com.github.mindcubr.jsdb.exception;
+package io.github.mindcubr.jsdb.exception;
 
-import com.github.mindcubr.jsdb.Game;
-import com.github.mindcubr.jsdb.Platform;
+import io.github.mindcubr.jsdb.Game;
+import io.github.mindcubr.jsdb.Platform;
 import org.jetbrains.annotations.NotNull;
 
 /**
