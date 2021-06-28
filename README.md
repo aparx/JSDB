@@ -22,7 +22,7 @@ further about how and why to create those steps.<br><br>
 have to do that by yourself. Without that authorization, an error code _401: Unauthorized_ is returned.<br>
 In this case a **JSDBTokenInvalid** exception would be thrown, later when fetching a user.<br>
 ```java
-DBToken token = DBToken.encrypt("1703132411279978", "8ccd4fcae29021103178a1188023004d");
+DBToken token = DBToken.encrypt("App-UserID", "App-UserPassword");
 ```
 _Wiki links:_
 [How to setup a token](https://github.com/mindcubr/JSDB/wiki/Getting-Started#creating-an-application-for-statsdbnet) | [DBToken - what is this?](https://github.com/mindcubr/JSDB/wiki/The-Main-Components#dbtoken)
@@ -30,7 +30,7 @@ _Wiki links:_
 **2.** We need to create a [GlobalConfig](https://github.com/mindcubr/JSDB/wiki/The-Main-Components#globalconfig), that is used to store sensitive data,<br>
 such as the token and for the [DBBridge](https://github.com/mindcubr/JSDB/wiki/The-Main-Components#dbbridge) necessary components and attributes.<br>
 ```java
-DBToken token = DBToken.encrypt("1703132411279978", "8ccd4fcae29021103178a1188023004d");
+DBToken token = DBToken.encrypt("App-UserID", "App-UserPassword");
 GlobalConfig config = GlobalConfig.withToken(token);
 DBBridge bridge = DBBridge.create(config);
 ```
