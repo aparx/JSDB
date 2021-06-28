@@ -1,7 +1,7 @@
 The library is yet **Work In Progress** and unstable.<br>
-The maven information does not work at the moment and we are working on a fix.<br>
-Wait until a 2.0.0 update is out and/or the next update that says "stable".<br>
-Functions and features are missing out, as well as docs! So please consider waiting.<br>
+- [ ] The maven information does not work at the moment and we are working on a fix.<br>
+- [ ] Wait until a 2.0.0 update is out and/or the next update that says "stable".<br>
+- [ ] Functions and features are missing out, as well as docs! So please consider waiting.<br>
 But the core functions, as described below and in the wikis are running through the latest<br>
 attached .jar-file.<br>
 
