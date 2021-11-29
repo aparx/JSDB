@@ -101,3 +101,6 @@ and use the library and how to finish and deploy such an application.<br>
 It is suggested to read the complete wiki!
 
 [Begin reading the Wiki!](https://github.com/mindcubr/JSDB/wiki)
+
+Note: It has to be seen as an older project of me, as it has issues and uses an older code and documentation style,
+that may be wrong or even not comparable with newer projects of mine.
